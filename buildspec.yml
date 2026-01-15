@@ -17,14 +17,14 @@ phases:
   pre_build:
     commands:
       - echo "Initializing Terraform..."
-      - cd $TF_DIR && terraform init
+      - cd $CODEBUILD_SRC_DIR/$TF_DIR && terraform init
 
   build:
     commands:
       - echo "Running Terraform Plan..."
-      - cd $TF_DIR && terraform plan -out=tfplan
+      - cd $CODEBUILD_SRC_DIR/$TF_DIR && terraform plan -out=tfplan
       - echo "Applying Terraform..."
-      - cd $TF_DIR && terraform apply -auto-approve tfplan
+      - cd $CODEBUILD_SRC_DIR/$TF_DIR && terraform apply -auto-approve tfplan
 
   post_build:
     commands:
