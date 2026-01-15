@@ -1,0 +1,30 @@
+version: 0.2
+
+env:
+  variables:
+    TF_VERSION: "1.7.0"
+
+phases:
+  install:
+    commands:
+      - echo "Installing Terraform..."
+      - curl -Lo terraform.zip https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip
+      - unzip terraform.zip
+      - mv terraform /usr/local/bin/
+      - terraform --version
+
+  pre_build:
+    commands:
+      - echo "Initializing Terraform..."
+      - terraform init
+
+  build:
+    commands:
+      - echo "Running Terraform Plan..."
+      - terraform plan -out=tfplan
+      - echo "Applying Terraform..."
+      - terraform apply -auto-approve tfplan
+
+  post_build:
+    commands:
+      - echo "Terraform apply completed!"
