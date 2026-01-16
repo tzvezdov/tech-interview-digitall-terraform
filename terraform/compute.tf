@@ -77,10 +77,6 @@ resource "aws_lb_target_group_attachment" "web" {
 }
 
 ## Outputs
-output "alb_dns_name" {
-  description = "DNS name of the load balancer"
-  value       = aws_lb.test.dns_name
-}
 
 output "ec2_public_ip" {
   description = "Public IP of the EC2 instance"
