@@ -21,6 +21,9 @@ phases:
       - echo "Debug folder structure..."
       - ls -lah $CODEBUILD_SRC_DIR_TerraformPlanArtifact
       - ls -lah $CODEBUILD_SRC_DIR_TerraformPlanArtifact/terraform/
+      - cp $CODEBUILD_SRC_DIR_TerraformPlanArtifact/terraform/.terraform $CODEBUILD_SRC_DIR/$TF_DIR
+      - cp $CODEBUILD_SRC_DIR_TerraformPlanArtifact/terraform/.terraform.lock.hcl $CODEBUILD_SRC_DIR/$TF_DIR
+      - cp $CODEBUILD_SRC_DIR_TerraformPlanArtifact/terraform/tfplan $CODEBUILD_SRC_DIR/$TF_DIR
 
   build:
     commands:
