@@ -1,0 +1,37 @@
+version: 0.2
+
+env:
+  variables:
+    TF_VERSION: "1.7.0"
+    TF_DIR: "terraform"
+
+phases:
+  install:
+    commands:
+      - echo "Installing Terraform..."
+      - curl -Lo terraform.zip https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip
+      - unzip -o terraform.zip -d /tmp/terraform-install
+      - mv /tmp/terraform-install/terraform /usr/local/bin/
+      - terraform --version
+
+  pre_build:
+    commands:
+      - echo "Initializing Terraform..."
+      - cd $CODEBUILD_SRC_DIR/$TF_DIR && terraform init
+
+  build:
+    commands:
+      - echo "Running Terraform Plan..."
+      - cd $CODEBUILD_SRC_DIR/$TF_DIR && terraform plan -out=tfplan
+
+  post_build:
+    commands:
+      - echo "Plan completed! Awaiting approval..."
+
+artifacts:
+  files:
+    - terraform/.terraform/**/*
+    - terraform/.terraform.lock.hcl
+    - terraform/tfplan
+    - terraform/*.tf
+  name: tf-plan-output

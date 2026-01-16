@@ -1,0 +1,15 @@
+version: 0.2
+
+env:
+  variables:
+    TF_DIR: "terraform"
+
+phases:
+  build:
+    commands:
+      - echo "Applying Terraform..."
+      - cd $CODEBUILD_SRC_DIR/$TF_DIR && terraform apply -auto-approve tfplan
+
+  post_build:
+    commands:
+      - echo "Terraform apply completed!"
