@@ -18,6 +18,9 @@ phases:
     commands:
       - echo "Initializing Terraform..."
       - cd $CODEBUILD_SRC_DIR/$TF_DIR && terraform init
+      - echo "Debug folder structure..."
+      - ls -lah $CODEBUILD_SRC_DIR_TerraformPlanArtifact
+      - ls -lah $CODEBUILD_SRC_DIR_TerraformPlanArtifact/terraform/
 
   build:
     commands:
