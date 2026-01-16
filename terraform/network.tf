@@ -89,7 +89,7 @@ resource "aws_security_group" "lb_sg" {
 
 ## S3 Bucket for ELB logs
 resource "aws_s3_bucket" "lb_logs" {
-  bucket = "my-alb-logs-bucket-unique-name" # Change to globally unique name
+  bucket = "lblogsrandom" # Change to globally unique name
 
   tags = {
     Name = "ALB Logs Bucket"
